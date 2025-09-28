@@ -133,3 +133,18 @@ Learn more about the power of Turborepo:
 - [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
 - [Configuration Options](https://turborepo.com/docs/reference/configuration)
 - [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+
+---
+
+# Temos 5 APPs no ecositstema do TurboREPO
+
+## Front
+- client - Nextjs - port 3002
+- admin - Nextjs - port 8803
+---
+## Back
+- product-service - Express - port 8800 - Postgres
+- order-service - Fastify - port 8801
+- payment-service - Hono - port 8802
+
+❌ ✅
