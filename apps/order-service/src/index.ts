@@ -1,10 +1,11 @@
 import Fastify from 'fastify';
-import { clerkPlugin, getAuth } from '@clerk/fastify'
-import { shouldBeUser } from './middleware/authMiddleware.js';
+import Clerk from "@clerk/fastify";
+import { connectOrderDB } from '@repo/order-db';
+import { orderRoute } from './routes/order';
 
 const fastify = Fastify();
 
-fastify.register(clerkPlugin)
+fastify.register(Clerk.clerkPlugin);
 
 fastify.get("/health", async (request, reply) => {
     return reply.status(200).send({
@@ -14,19 +15,15 @@ fastify.get("/health", async (request, reply) => {
     });
 })
 
-fastify.get("/test", { preHandler: shouldBeUser }, async (request, reply) => {
-
-    return reply.status(200).send({
-        message: `Hello, your userId is ${request.userId}`,
-    });
-})
+fastify.register(orderRoute);
 
 const start = async () => {
     try {
+        await connectOrderDB();
         await fastify.listen({ port: 8001 })
         console.log('✅ Order Service is running on port 8001');
     } catch (error) {
-        fastify.log.error(error);
+        console.log(error);
         process.exit(1);
     }
 }

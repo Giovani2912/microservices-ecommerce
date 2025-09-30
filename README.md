@@ -144,7 +144,7 @@ Learn more about the power of Turborepo:
 ---
 ## Back
 - product-service - Express - port 8800 - Postgres
-- order-service - Fastify - port 8801
+- order-service - Fastify - port 8801 - Mongo
 - payment-service - Hono - port 8802
 
 ❌ ✅
