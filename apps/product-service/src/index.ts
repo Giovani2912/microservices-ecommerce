@@ -4,6 +4,7 @@ import { clerkMiddleware, getAuth } from '@clerk/express'
 // import { shouldBeUser } from "./middleware/authMiddleware";
 import productRouter from './routes/product.route';
 import categoryRouter from './routes/category.route';
+import { consumer, producer } from './utils/kakfa';
 
 const app = express();
 
@@ -33,6 +34,26 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     res.status(statusCode).json({ message });
 });
 
-app.listen(PORT, () => {
-    console.log(`✅ Product Service is running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     producer.connect();
+//     consumer.connect();
+//     console.log(`✅ Product Service is running on port ${PORT}`);
+// });
+
+
+const start = async () => {
+    try {
+        Promise.all([
+            await producer.connect(),
+            await consumer.connect()
+        ]);
+
+        app.listen(PORT, () => {
+            console.log(`✅ Product Service is running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error('Failed to start the server:', error);
+    }
+}
+
+start();

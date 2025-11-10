@@ -148,3 +148,9 @@ Learn more about the power of Turborepo:
 - payment-service - Hono - port 8802
 
 ❌ ✅
+
+## Para rodar o turbo repo:
+### Iniciar containers do postgres e do Kafka
+
+```
+$ turbo dev

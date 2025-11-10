@@ -1,12 +1,15 @@
 import { serve } from '@hono/node-server'
-import { stat } from 'fs'
 import { Hono } from 'hono'
-import { clerkMiddleware, getAuth } from '@hono/clerk-auth'
-import { shouldBeUser } from './middleware/authMiddleware'
+import { clerkMiddleware } from '@hono/clerk-auth'
+import sessionRoute from './routes/session.route'
+import { cors } from 'hono/cors'
+import webhookRoute from './routes/webhooks.route'
+import { consumer, producer } from '../utils/kafka'
+import { runKafkaSubscriptions } from '../utils/subscriptions'
 
 const app = new Hono()
 app.use('*', clerkMiddleware())
-
+app.use('*', cors({ origin: ['http://localhost:3002'] }))
 app.get("/health", (c) => {
   return c.json({
     status: 'ok',
@@ -15,14 +18,19 @@ app.get("/health", (c) => {
   })
 })
 
-app.get("/test", shouldBeUser, (c) => {
-  return c.json({
-    message: 'You are logged in!', userId: c.get('userId')
-  })
-})
+app.route("/sessions", sessionRoute)
+app.route("/webhooks", webhookRoute)
+
 
 const start = async () => {
   try {
+    Promise.all([
+      await producer.connect(),
+      await consumer.connect()
+    ]);
+
+    await runKafkaSubscriptions()
+
     serve({
       fetch: app.fetch,
       port: 8002
