@@ -1,26 +1,26 @@
-# Payment Service
+# Order Service
 
-Microserviço responsável pelo processamento de pagamentos, construído com Hono e TypeScript.
+Microserviço responsável pelo gerenciamento de pedidos, construído com Fastify e TypeScript.
 
 ## Tecnologias
 
-- **Hono** - Framework web ultrarrápido
+- **Fastify** - Framework web de alta performance
 - **TypeScript** - Tipagem estática
-- **Stripe** - Processamento de pagamentos
 - **Clerk** - Autenticação
 - **Kafka** - Mensageria assíncrona
+- **date-fns** - Manipulação de datas
 
 ## Pré-requisitos
 
 - Node.js
 - pnpm
 - Arquivo `.env` configurado
-- Conta Stripe configurada
 
 ## Dependências do Workspace
 
 Este serviço faz parte de um monorepo e depende dos seguintes pacotes internos:
 
+- `@repo/order-db` - Camada de acesso ao banco de dados de pedidos
 - `@repo/kafka` - Cliente Kafka compartilhado
 - `@repo/typescript-config` - Configuração TypeScript compartilhada
 - `@repo/types` - Tipos compartilhados
@@ -36,8 +36,6 @@ pnpm install
 | Comando | Descrição |
 |---------|-----------|
 | `pnpm dev` | Inicia o servidor em modo de desenvolvimento com hot-reload |
-| `pnpm build` | Compila o projeto TypeScript |
-| `pnpm start` | Executa a versão compilada em produção |
 | `pnpm check-types` | Verifica erros de tipagem TypeScript |
 
 ## Configuração
@@ -45,10 +43,10 @@ pnpm install
 Crie um arquivo `.env` na raiz do projeto com as variáveis de ambiente necessárias:
 
 ```env
-PORT=3001
+PORT=3002
 CLERK_SECRET_KEY=...
-STRIPE_SECRET_KEY=sk_...
-STRIPE_WEBHOOK_SECRET=whsec_...
+DATABASE_URL=...
+KAFKA_BROKER=...
 ```
 
 ## Estrutura
@@ -56,7 +54,4 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 ```
 src/
 └── index.ts    # Ponto de entrada da aplicação
-
-dist/           # Código compilado (gerado após build)
-└── index.js
 ```

@@ -1,13 +1,12 @@
-# Payment Service
+# Auth Service
 
-Microserviço responsável pelo processamento de pagamentos, construído com Hono e TypeScript.
+Microserviço responsável pela autenticação e autorização, construído com Express.js e TypeScript.
 
 ## Tecnologias
 
-- **Hono** - Framework web ultrarrápido
+- **Express 5** - Framework web
 - **TypeScript** - Tipagem estática
-- **Stripe** - Processamento de pagamentos
-- **Clerk** - Autenticação
+- **Clerk** - Gerenciamento de identidade e autenticação
 - **Kafka** - Mensageria assíncrona
 
 ## Pré-requisitos
@@ -15,7 +14,7 @@ Microserviço responsável pelo processamento de pagamentos, construído com Hon
 - Node.js
 - pnpm
 - Arquivo `.env` configurado
-- Conta Stripe configurada
+- Conta Clerk configurada
 
 ## Dependências do Workspace
 
@@ -36,8 +35,6 @@ pnpm install
 | Comando | Descrição |
 |---------|-----------|
 | `pnpm dev` | Inicia o servidor em modo de desenvolvimento com hot-reload |
-| `pnpm build` | Compila o projeto TypeScript |
-| `pnpm start` | Executa a versão compilada em produção |
 | `pnpm check-types` | Verifica erros de tipagem TypeScript |
 
 ## Configuração
@@ -45,10 +42,10 @@ pnpm install
 Crie um arquivo `.env` na raiz do projeto com as variáveis de ambiente necessárias:
 
 ```env
-PORT=3001
+PORT=3003
 CLERK_SECRET_KEY=...
-STRIPE_SECRET_KEY=sk_...
-STRIPE_WEBHOOK_SECRET=whsec_...
+CLERK_PUBLISHABLE_KEY=...
+KAFKA_BROKER=...
 ```
 
 ## Estrutura
@@ -56,7 +53,4 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 ```
 src/
 └── index.ts    # Ponto de entrada da aplicação
-
-dist/           # Código compilado (gerado após build)
-└── index.js
 ```

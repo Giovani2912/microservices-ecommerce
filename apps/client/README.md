@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Client
 
-## Getting Started
+Aplicação web voltada ao cliente final, construída com Next.js 15 e React 19.
 
-First, run the development server:
+## Tecnologias
+
+- **Next.js 15** - Framework React com Turbopack
+- **React 19** - Biblioteca de UI
+- **TypeScript** - Tipagem estática
+- **Tailwind CSS 4** - Estilização
+- **Clerk** - Autenticação
+- **Stripe** - Processamento de pagamentos
+- **Zustand** - Gerenciamento de estado global
+- **React Hook Form + Zod** - Formulários e validação
+- **Lucide React** - Ícones
+
+## Pré-requisitos
+
+- Node.js
+- pnpm
+- Variáveis de ambiente configuradas
+
+## Dependências do Workspace
+
+Este projeto faz parte de um monorepo e depende dos seguintes pacotes internos:
+
+- `@repo/types` - Tipos compartilhados
+- `@repo/typescript-config` - Configuração TypeScript compartilhada
+- `@repo/eslint-config` - Configuração ESLint compartilhada
+
+## Instalação
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Comando | Descrição |
+|---------|-----------|
+| `pnpm dev` | Inicia o servidor de desenvolvimento com Turbopack (porta 3002) |
+| `pnpm build` | Compila o projeto para produção |
+| `pnpm start` | Inicia o servidor de produção |
+| `pnpm lint` | Executa o linter |
+| `pnpm check-types` | Verifica erros de tipagem TypeScript |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Configuração
 
-## Learn More
+Crie um arquivo `.env.local` na raiz do projeto:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
+CLERK_SECRET_KEY=...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_...
+NEXT_PUBLIC_API_URL=...
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estrutura
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/            # App Router (páginas e layouts)
+├── components/     # Componentes React
+├── hooks/          # Custom hooks
+├── lib/            # Utilitários e configurações
+├── store/          # Stores Zustand
+└── styles/         # Estilos globais
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![alt text](../../public/image2.png)
+![alt text](../../public/image-2.png)
+![alt text](../../public/image-1.png)
